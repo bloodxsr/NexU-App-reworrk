@@ -1,0 +1,108 @@
+# System Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.vs/
+*.sln
+*.suo
+
+# Docker & Database Data
+data/
+scylla_data/
+scylla_data_*/
+postgres_data/
+meili_data/
+minio_data/
+*.db
+*.db-shm
+*.db-wal
+*.db-journal
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Environment & Secrets
+.env
+.env.*
+*.pem
+*.key
+*.csr
+*.crt
+password
+
+# Frontend (Node.js/Vite)
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+frontend/dist-ssr/
+frontend/.vite/
+.vite/
+
+# Backend (Rust)
+target/
+backend/target/
+backend/data/
+backend/uploads/
+**/Cargo.lock.bk
+**/*.rs.bk
+backend/scratch.txt
+scratch.txt
+
+# Misc
+coverage/
+temp/
+tmp/
+project_docs.md
+PROJECT_DOCUMENTATION.md
+.gemini/
+
+# OS generated files
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+[Dd]esktop.ini
+
+# Yarn / Npm
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Rust
+debug/
+target/
+**/*.rs.bk
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app

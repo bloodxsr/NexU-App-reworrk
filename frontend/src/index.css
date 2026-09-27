@@ -1,0 +1,164 @@
+:root {
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-yellow: #ffffff;
+  --color-orange: #ffffff;
+  --color-orange-hover: #cccccc;
+  --color-gray: #888888;
+  --font-primary: 'Inter', system-ui, Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-family: var(--font-primary);
+  font-size: 14px;
+  line-height: 1;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hide browser default password reveal controls; use custom UI instead */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+  display: none;
+}
+
+input[type="password"]::-webkit-credentials-auto-fill-button,
+input[type="password"]::-webkit-contacts-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Lenis Recommended CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* --- MINIMALIST B&W GLOBAL OVERRIDES --- */
+* {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+body, html, .page-container, .split-page-wrapper, .admin-portal-page, .home-credits, .app-container {
+  background-color: #000 !important;
+  background-image: none !important;
+  color: #fff !important;
+}
+
+div, section, article, nav, header, footer, aside, span, p, h1, h2, h3, h4, h5, h6, button, input, textarea {
+  /* Remove all background gradients */
+  background-image: none !important;
+  /* Enforce B&W borders */
+  border-color: #333 !important;
+}
+
+/* Force buttons to be minimalist */
+.btn, .home-intro-btn, .action-btn {
+  background: #fff !important;
+  color: #000 !important;
+  border: 1px solid #fff !important;
+  border-radius: 0 !important;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease !important;
+}
+
+.btn:hover, .home-intro-btn:hover, .action-btn:hover {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+/* Cards and panels */
+.home-intro-card, .feature-card, .dashboard-card, .glass-panel, .spotlight-card, table, th, td {
+  background: transparent !important;
+  border: 1px solid #333 !important;
+  border-radius: 0 !important;
+}
+
+th {
+  background: #111 !important;
+  color: #fff !important;
+  border-bottom: 1px solid #333 !important;
+}
+
+td {
+  border-bottom: 1px solid #222 !important;
+}
+
+/* Links */
+a {
+  color: #fff !important;
+}
+a:hover {
+  color: #ccc !important;
+}
+
+/* Remove Spotlight effects entirely */
+.spotlight-overlay {
+  display: none !important;
+}
+
+
+/* Minimal B&W Checkboxes */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px !important;
+    height: 24px !important;
+    border: 1px solid #333 !important;
+    background: transparent !important;
+    cursor: pointer;
+    border-radius: 0;
+    display: inline-grid;
+    place-content: center;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #fff !important;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    transform: scale(0);
+    transition: 120ms transform ease-in-out;
+    background-color: #fff;
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}

@@ -1,0 +1,79 @@
+.logo-loop {
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-loop-track {
+    display: flex;
+    align-items: center;
+    gap: var(--logo-gap, 14px);
+    width: max-content;
+    animation: logo-loop-x var(--loop-duration, 24s) linear infinite;
+    will-change: transform;
+}
+
+.logo-loop--y .logo-loop-track {
+    flex-direction: column;
+    animation-name: logo-loop-y;
+}
+
+.logo-loop-track.is-reverse {
+    animation-direction: reverse;
+}
+
+.logo-loop-item {
+    min-height: var(--logo-height, 34px);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.logo-loop-item img,
+.logo-loop-item svg {
+    height: var(--logo-height, 34px);
+    width: auto;
+    display: block;
+    object-fit: contain;
+}
+
+.logo-loop-item a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-loop--pause:hover .logo-loop-track {
+    animation-play-state: paused;
+}
+
+.logo-loop--scale .logo-loop-item:hover {
+    transform: scale(1.05);
+}
+
+@keyframes logo-loop-x {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(-50%, 0, 0);
+    }
+}
+
+@keyframes logo-loop-y {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        transform: translate3d(0, -50%, 0);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-loop-track {
+        animation: none !important;
+    }
+}

@@ -1,0 +1,61 @@
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-black);
+    /* Fill screen with site background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* Ensure loader is above everything including Header */
+}
+
+.route-transition-loader {
+    pointer-events: none;
+    animation: routeFadeOut 1s ease forwards;
+}
+
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: 60px;
+    aspect-ratio: 1;
+    /* Changed #000 to #fff so it is visible against the dark background */
+    --g: conic-gradient(from -90deg at 10px 10px, #fff 90deg, #0000 0);
+    background: var(--g), var(--g), var(--g);
+    background-size: 50% 50%;
+    animation: l16 1s infinite;
+}
+
+@keyframes l16 {
+    0% {
+        background-position: 0 0, 10px 10px, 20px 20px
+    }
+
+    50% {
+        background-position: 0 20px, 10px 10px, 20px 0
+    }
+
+    100% {
+        background-position: 20px 20px, 10px 10px, 0 0
+    }
+}
+
+@keyframes routeFadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    99% {
+        opacity: 0;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}

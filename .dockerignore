@@ -1,0 +1,41 @@
+# Build artifacts
+node_modules/
+dist/
+dist-ssr/
+target/
+backend/target/
+frontend/node_modules/
+frontend/dist/
+
+# Configuration and secrets
+.git/
+.env
+!.env.example
+password
+*.key
+*.pem
+
+# Data and logs
+data/
+scylla_data/
+postgres_data/
+meili_data/
+minio_data/
+logs/
+*.log
+
+# Editor and AI tools
+.vscode/
+.idea/
+.DS_Store
+
+# Documentation (Optional to ignore in prod)
+PROJECT_DOCUMENTATION.md
+project_docs.md
+
+# Scratch files
+scratch.txt
+backend/scratch.txt
+coverage/
+temp/
+tmp/

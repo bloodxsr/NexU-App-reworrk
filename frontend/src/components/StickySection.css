@@ -1,0 +1,183 @@
+.sticky-container {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-black);
+    display: block;
+    /* override flex from previous implementation */
+}
+
+.sticky-left {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through to overlay/images if needed */
+}
+
+.sticky-text-block {
+    height: 100vh;
+    margin-bottom: 50vh;
+    /* Reduced vertical space between text blocks based on user feedback */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s;
+    opacity: 0.3;
+}
+
+.sticky-text-block:last-child {
+    margin-bottom: 0;
+    /* Remove margin for the last item so it doesn't leave trailing empty space */
+}
+
+.sticky-text-block.align-left {
+    justify-content: flex-start;
+}
+
+.sticky-text-block.align-right {
+    justify-content: flex-end;
+}
+
+.text-content-wrapper {
+    display: flex;
+    gap: 2.3rem;
+    max-width: 1020px;
+    width: 100%;
+    padding: 1.1rem 8vw 1.1rem 8vw;
+    border-radius: 14px;
+    background: rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+
+.sticky-text-block.active {
+    opacity: 1;
+}
+
+.topic-number {
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-top: 0.42rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.topic-text {
+    font-size: clamp(1.35rem, 2.8vw, 2.8rem);
+    font-weight: 550;
+    line-height: 1.28;
+    margin: 0;
+    width: 100%;
+    letter-spacing: -0.012em;
+}
+
+.sticky-right {
+    width: 100%;
+    height: 100vh;
+    /* matches the viewport to pin cleanly */
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.sticky-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    object-fit: cover;
+    will-change: opacity, transform;
+}
+
+.sticky-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    /* darken images so text is readable */
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* Subtle vertical grid lines matching Iceberg */
+.sticky-overlay::before,
+.sticky-overlay::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.sticky-overlay::before {
+    left: 25%;
+}
+
+.sticky-overlay::after {
+    left: 75%;
+}
+
+.read-more-sidebar {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 6rem;
+    /* fixed width for the blur sidebar */
+    background: rgba(255, 255, 255, 0.03);
+    /* very subtle white overlay */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    /* Left border for clean edge */
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.read-more-sidebar a {
+    color: var(--color-white);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    transform: rotate(90deg);
+    /* Rotate the text instead of the sidebar */
+    white-space: nowrap;
+    /* Prevent text wrapping when rotated */
+}
+
+.read-more-sidebar a:hover {
+    opacity: 1;
+    letter-spacing: 0.15em;
+}
+
+@media (max-width: 768px) {
+    .text-content-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 1.1rem;
+        max-width: calc(100% - 2.4rem);
+    }
+
+    .topic-number {
+        margin-top: 0;
+    }
+
+    .sticky-overlay {
+        background: rgba(0, 0, 0, 0.7);
+        /* make darker on mobile to ensure readability */
+    }
+}

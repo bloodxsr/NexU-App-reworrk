@@ -1,0 +1,99 @@
+services:
+  scylla-node1:
+    image: scylladb/scylla
+    container_name: nexu-scylla-node1
+    ports:
+      - "9042:9042"
+    command: --smp 1 --memory 750M --developer-mode 1 --broadcast-address 127.0.0.1 --broadcast-rpc-address 127.0.0.1
+    volumes:
+      - scylla_data_1:/var/lib/scylla
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "SELECT now() FROM system.local"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: cgr.dev/chainguard/minio:latest
+    container_name: nexu-minio
+    user: "root"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ACCESS_KEY:-nexu_admin}
+      - MINIO_ROOT_PASSWORD=${MINIO_SECRET_KEY:-nexu_secret_123}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.13
+    container_name: nexu-meilisearch
+    ports:
+      - "7700:7700"
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-nexu_meili_master}
+      - MEILI_ENV=${MEILI_ENV:-development}
+      - MEILI_NO_ANALYTICS=${MEILI_NO_ANALYTICS:-true}
+    volumes:
+      - meili_data:/meili_data
+
+  postgres:
+    image: postgres:16
+    container_name: nexu-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-nexu}
+      - POSTGRES_USER=${POSTGRES_USER:-nexu_admin}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-nexu_secret_123}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nexu_admin} -d ${POSTGRES_DB:-nexu}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  nexu:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nexu-production
+    ports:
+      - "${PORT:-3001}:3001"
+    volumes:
+      - nexu_data:/app/data
+    environment:
+      - PORT=3001
+      - SCYLLA_URI=${SCYLLA_URI:-nexu-scylla-node1}
+      - SCYLLA_RF=1
+      - MINIO_ENDPOINT=${MINIO_ENDPOINT:-http://minio:9000}
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY:-nexu_admin}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY:-nexu_secret_123}
+      - MINIO_REGION=${MINIO_REGION:-us-east-1}
+      - MINIO_BUCKET=${MINIO_BUCKET:-nexu-resources}
+      - MEILI_URL=${MEILI_URL:-http://meilisearch:7700}
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY:-nexu_meili_master}
+      - MEILI_INDEX_RESOURCES=${MEILI_INDEX_RESOURCES:-resources}
+      - MEILI_INDEX_STUDENTS=${MEILI_INDEX_STUDENTS:-students}
+      - DATABASE_URL=${DATABASE_URL:-postgres://nexu_admin:nexu_secret_123@postgres:5432/nexu}
+    depends_on:
+      scylla-node1:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      meilisearch:
+        condition: service_started
+      postgres:
+        condition: service_healthy
+
+volumes:
+  scylla_data_1:
+  scylla_data_2:
+  scylla_data_3:
+  nexu_data:
+  minio_data:
+  meili_data:
+  postgres_data:

@@ -1,0 +1,7 @@
+.card-spotlight {
+    position: relative;
+    border: 1px solid #333;
+    background-color: transparent;
+    padding: 1.5rem;
+    overflow: hidden;
+}

@@ -1,0 +1,40 @@
+.page-preloader {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: preloader-fade-out 0.8s ease 0.5s forwards;
+    pointer-events: none;
+}
+
+.page-preloader-text {
+    font-size: clamp(2rem, 6vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.05em;
+    color: #fff;
+    animation: preloader-pulse 0.6s ease infinite alternate;
+}
+
+@keyframes preloader-fade-out {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes preloader-pulse {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
